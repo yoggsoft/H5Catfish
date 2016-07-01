@@ -7,7 +7,6 @@ var catfish = (function(){
 	var hasExpanded = false;
 
 	// required for initialize:
-
 	var element = null;
 	var collapsed = null;
 	var expanded = null;

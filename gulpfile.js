@@ -5,7 +5,7 @@ pump = require('pump'),
 uglify = require('gulp-uglify'),
 watch = require('gulp-watch');
 
-var path = {
+var path={
     script:
     {
       src:'src',
@@ -19,12 +19,10 @@ gulp.task('uglify',function(cb){
         gulp.src(path.script.src+"/*.js"),
         uglify(),
         gulp.dest(path.script.des+"build/")
-    ],
-    cb
-  );
+    ],cb);
 });
 gulp.task('watch',function(){
-
+  gulp.watch(path.script.src,['uglify']);
 });
 
 gulp.task('default',['uglify']);
