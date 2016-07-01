@@ -1,0 +1,25 @@
+{
+  "name": "html5catfish",
+  "version": "1.0.0",
+  "description": "HTML5 script for building catfish Rich Media formats",
+  "main": "index.html",
+  "directories": {
+    "doc": "doc"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://www.github.com/yoggsoft/H5Catfish.git"
+  },
+  "keywords": [
+    "richmedia",
+    "catfish",
+    "advertising",
+    "digital",
+    "media"
+  ],
+  "author": "Manuel Reyes",
+  "license": "ISC"
+}
