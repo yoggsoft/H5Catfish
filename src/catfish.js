@@ -1,3 +1,4 @@
+/* Catfish format */ 
 var catfish = (function(){
 	/* private:*/
 	var version = 'v1';
