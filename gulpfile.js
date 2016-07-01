@@ -1,8 +1,15 @@
 // Declaring Gulp
 var gulp = require('gulp');
-gulp = require('gulp-uglify');
+var pump = require('pump');
+var uglify = require('gulp-uglify');
 
 // Tasks
-gulp.task('uglify',function(){
-
+gulp.task('uglify',function(cb){
+  pump([
+        gulp.src('src/*.js'),
+        uglify(),
+        gulp.dest('build/')
+    ],
+    cb
+  );
 });

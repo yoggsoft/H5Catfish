@@ -1,21 +1,6 @@
-/**
- *
- * DoubleClick Rich Media
- *
- * Copyright (C) 2014 Google, Inc. - @manuelreyes
- *
- * catfish.js - v.1.0
- * @author Manuel Reyes - @manuelreyes
- * @description Allows HTML5 creatives to expand 100% width along the
- *              publisher's Website. This script makes the same effect as
- *               AS3 catfish.
- *              This class is intended to be used exclusively for Rich Media
- *              under DoubleClick platform.
- *
- */
 var catfish = (function(){
 	/* private:*/
-	var version = 'v1',
+	var version = 'v1';
 	var debug = true;
 	var hasCollapsed = false;
 	var hasExpanded = false;
