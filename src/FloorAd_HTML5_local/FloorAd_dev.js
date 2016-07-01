@@ -1,26 +1,26 @@
 /**
- *																
- * DoubleClick Rich Media										
- *																
- * Copyright (C) 2014 Google, Inc. - @manuelreyes				
  *
- * FloorAd.js - v.1.0
+ * DoubleClick Rich Media
+ *
+ * Copyright (C) 2014 Google, Inc. - @manuelreyes
+ *
+ * catfish.js - v.1.0
  * @author Manuel Reyes - @manuelreyes
  * @description Allows HTML5 creatives to expand 100% width along the
  *              publisher's Website. This script makes the same effect as
- *               AS3 FloorAd.
+ *               AS3 catfish.
  *              This class is intended to be used exclusively for Rich Media
- *              under DoubleClick platform.  
- * 
+ *              under DoubleClick platform.
+ *
  */
-var FloorAd = (function(){
+var catfish = (function(){
 	/* private:*/
 	var version = 'v1',
 	var debug = true;
 	var hasCollapsed = false;
 	var hasExpanded = false;
 	/*required for initialize:*/
-	var element = null;/* FloorAd Div*/
+	var element = null;/* catfish Div*/
 	var collapsed = null;/* collapsed Div*/
 	var expanded = null;/*expanded Div*/
 	var collapsedHeight = null;/* colapsed Div's height*/
@@ -28,25 +28,25 @@ var FloorAd = (function(){
 	var minimumWidth = null;
 	var fixedWidth = false;/* fixed Width property*/
 	var heightOffset = null;/* expanding offset (expanded Height - colapsed Height)*/
-	var collapsed_close_btn = "";	
-	var expanded_close_btn = "";	 
+	var collapsed_close_btn = "";
+	var expanded_close_btn = "";
 	var closeButtonOffsetTop = 5;/* close button margin top*/
 	var closeButtonOffsetRight = 5;/* close button margin right*/
-	var isReady = false;/* FloorAd ready flag*/
+	var isReady = false;/* catfish ready flag*/
 	var events = {};/* Empty event array*/
-	var fixedWidth = false;			
+	var fixedWidth = false;
 	var closeButtonStringLang = 'en';
 	var _roundCloseButton = false;
 	var btn_asset;
-	
+
 	/* [Phase 2] */
-	var _I 	= 'FloorAd.INIT';
-	var _E_S = 'FloorAd.EXPAND_START';
-	var _E_F = 'FloorAd.EXPAND_FINISH';
-	var _C_S = 'FloorAd.COLLAPSE_START';
-	var _C_F = 'FloorAd.COLLAPSE_FINISH';
-	var _C = 'FloorAd.CLOSE';
-	
+	var _I 	= 'catfish.INIT';
+	var _E_S = 'catfish.EXPAND_START';
+	var _E_F = 'catfish.EXPAND_FINISH';
+	var _C_S = 'catfish.COLLAPSE_START';
+	var _C_F = 'catfish.COLLAPSE_FINISH';
+	var _C = 'catfish.CLOSE';
+
 	var closeButton ={
 		url:'https://goo.gl/Ybf1rm',
 		width : 32,
@@ -54,9 +54,9 @@ var FloorAd = (function(){
 		offsetX:5,
 		offsetY:5
 	};
-	
+
 	/* private methods*/
-	function setFloorDivs()/* FloorAd initial setup function*/
+	function setFloorDivs()/* catfish initial setup function*/
 	{
 		if (Enabler.getParameter('varName')){
 			collapse();
@@ -69,9 +69,9 @@ var FloorAd = (function(){
 		var command  = 'document.getElementById("'+Enabler.getParameter("varName")+'.if").parentNode.parentNode.style.top = auto;';
 		Enabler.invokeExternalJsFunction(command);
 	}
-	
-	function collapse()/* FloorAd native collapse function*/
-	{	
+
+	function collapse()/* catfish native collapse function*/
+	{
 		if (Enabler.getParameter('varName'))
 		{
 			/*log('COLLAPSE_FUNCTION');*/
@@ -91,24 +91,24 @@ var FloorAd = (function(){
 				command += 'Parent.style.position = "absolute";';
 				command += 'Parent.style.overflow = "hidden";';
 				command += 'Parent.style.bottom = "0px";';
-				command += 'Parent.style.clip = "rect('+FloorAd.heightOffset+'px 5200px '+FloorAd.expandedHeight+'px 0px)";';
+				command += 'Parent.style.clip = "rect('+catfish.heightOffset+'px 5200px '+catfish.expandedHeight+'px 0px)";';
 				command += 'Parent.width = "100%";';
 				command += 'Parent.style.width = "100%";';
-				// command += 'var Parent_style = "position:absolute; box-sizing:content-box; width:100%; height:300px; overflow:hidden; bottom:0px; clip:rect('+FloorAd.heightOffset+'px 5200px '+FloorAd.expandedHeight+'px 0px); top:auto;";';
+				// command += 'var Parent_style = "position:absolute; box-sizing:content-box; width:100%; height:300px; overflow:hidden; bottom:0px; clip:rect('+catfish.heightOffset+'px 5200px '+catfish.expandedHeight+'px 0px); top:auto;";';
 				// command += 'Parent.setAttribute("style",Parent_style);';
 				/* Style Grampa Div */
 				command += 'Grampa.style.position = "fixed";';
 				command += 'Grampa.style.bottom = "0px";';
 				command += 'Grampa.width = "100%";';
 				command += 'Grampa.style.width = "100%";';
-				command += 'Grampa.style.clip = "rect('+FloorAd.heightOffset+'px 5200px '+FloorAd.expandedHeight+'px 0px)";';
-				// command += 'var Grampa_style = "width:100%;height:300px;z-index:1000000;position:fixed;left:0;display:block;bottom:0px;clip:rect('+FloorAd.heightOffset+'px 5200px '+FloorAd.expandedHeight+'px 0px);-webkit-backface-visibility: hidden;-moz-backface-visibility: hidden;-ms-backface-visibility: hidden;backface-visibility: hidden;";';
+				command += 'Grampa.style.clip = "rect('+catfish.heightOffset+'px 5200px '+catfish.expandedHeight+'px 0px)";';
+				// command += 'var Grampa_style = "width:100%;height:300px;z-index:1000000;position:fixed;left:0;display:block;bottom:0px;clip:rect('+catfish.heightOffset+'px 5200px '+catfish.expandedHeight+'px 0px);-webkit-backface-visibility: hidden;-moz-backface-visibility: hidden;-ms-backface-visibility: hidden;backface-visibility: hidden;";';
 				// command += 'Grampa.setAttribute("style",Grampa_style);';
 			Enabler.invokeExternalJsFunction(command);
 		}
 	}
-	
-	function expand()/* FloorAd native expand function */
+
+	function expand()/* catfish native expand function */
 	{
 		if (Enabler.getParameter('varName'))
 		{
@@ -119,33 +119,33 @@ var FloorAd = (function(){
 				/* 100% iframe */
 				command += 'adDiv.width = "100%";';
 				command += 'adDiv.style.width = "100%";';
-				command += 'adDiv.height = "'+FloorAd.expandedHeight+'px";';
-				command += 'adDiv.style.height = "'+FloorAd.expandedHeight+'px";';
+				command += 'adDiv.height = "'+catfish.expandedHeight+'px";';
+				command += 'adDiv.style.height = "'+catfish.expandedHeight+'px";';
 				command += 'adDiv.style.top = "auto";';
 				//command += 'adDiv.style.-webkit-backface-visibility = "hidden";';
 				/* Style Parent Div */
-				command += 'Parent.style.height = "'+FloorAd.expandedHeight+'px";';
+				command += 'Parent.style.height = "'+catfish.expandedHeight+'px";';
 				command += 'Parent.style.top = "auto";';
 				command += 'Parent.position = "absolute";';
 				command += 'Parent.overflow = "hidden";';
-				command += 'Parent.style.clip = "rect(0px 5200px '+FloorAd.expandedHeight+'px 0px)";';
+				command += 'Parent.style.clip = "rect(0px 5200px '+catfish.expandedHeight+'px 0px)";';
 				//command += 'Parent.style.-webkit-backface-visibility = "hidden";';
 				/* Style Grampa Div */
-				command += 'Grampa.height = "'+FloorAd.expandedHeight+'px";';
-				command += 'Grampa.style.height = "'+FloorAd.expandedHeight+'px";';
-				command += 'Grampa.style.clip = "rect(0px 5200px '+FloorAd.expandedHeight+'px 0px)";';
+				command += 'Grampa.height = "'+catfish.expandedHeight+'px";';
+				command += 'Grampa.style.height = "'+catfish.expandedHeight+'px";';
+				command += 'Grampa.style.clip = "rect(0px 5200px '+catfish.expandedHeight+'px 0px)";';
 				//command += 'Grampa.style.-webkit-backface-visibility = "hidden";';
 			Enabler.invokeExternalJsFunction(command);
 		}
 	}
-	
+
 	function appendCloseButtonTo(key)/* Attah close button in collapsed and expanded panel */
 	{
 		var cb = document.createElement('button');
 		var style;
 		if (cb)
 		{
-			
+
 			if (typeof btn_asset === undefined || typeof btn_asset === 'null')
 			{
 				/*round close button used */
@@ -159,42 +159,42 @@ var FloorAd = (function(){
 			cb.setAttribute("id",key.id+"_close_btn");
 			cb.setAttribute("style",style);
 		}
-		cb.addEventListener('click',floorAd_close,false);
+		cb.addEventListener('click',catfish_close,false);
 		key.appendChild(cb);
 		return cb;
 	}
 
-	function floorAd_close(e)/* FloorAd native close button */
+	function catfish_close(e)/* catfish native close button */
 	{
 		dispatch(_C);
-		if (e.target.parentElement === FloorAd.expanded)
-		{	
+		if (e.target.parentElement === catfish.expanded)
+		{
 			Enabler.requestFullscreenCollapse();
 		}
 		setFloorDivs();
 		Enabler.reportManualClose();
 		Enabler.close();
 	}
-	
-	function error(msg)/* FloorAd exclusive error console log */
+
+	function error(msg)/* catfish exclusive error console log */
 	{
-		console.log("%c [FloorAd] " + msg, "color:" + "red" + ";");
+		console.log("%c [catfish] " + msg, "color:" + "red" + ";");
 	}
 
-	function log(msg)/* FloorAd exclusive console log */
+	function log(msg)/* catfish exclusive console log */
 	{
-		console.log("%c [FloorAd] " + msg, "color:" + "blue" + ";");
+		console.log("%c [catfish] " + msg, "color:" + "blue" + ";");
 	}
 
 	function validate(key)/* validates for undefined or null */
 	{
 		if(typeof key === 'undefined' || typeof key === 'null')
 		{
-			error(key+' cannot be null or undefined. Make sure to set all 5 FloorAd parameters.');
+			error(key+' cannot be null or undefined. Make sure to set all 5 catfish parameters.');
 			return;
 		}else return true;
 	}
-	
+
 	function validateNum(key)/* validates number */
 	{
 		if (typeof Number(key) && parseInt(key) % 1 === 0 && !isNaN(key))
@@ -205,38 +205,38 @@ var FloorAd = (function(){
 			return;
 		}
 	}
-	
+
 	var dispatch = function (key)
 	{
 		var dataObj;
 		if (events.hasOwnProperty(key))
 		{
 			dataObj = dataObj || {};
-			dataObj.currentTarget = FloorAd;
-			for (var i in events[key]) 
+			dataObj.currentTarget = catfish;
+			for (var i in events[key])
 			{
 				events[key][i](dataObj);
 			}
 		}
 	}
-	
+
 	 var _addEventListener = function (key,func)
 	{
-		if (!events.hasOwnProperty(key)) 
+		if (!events.hasOwnProperty(key))
 		{
         		events[key] = [];
 		}
 
 		events[key].push(func);
 	}
-	
-	var _removeEventListener = function(key,func)/* removes listeners for the FloorAd */
+
+	var _removeEventListener = function(key,func)/* removes listeners for the catfish */
 	{
-		if (events.hasOwnProperty(key)) 
+		if (events.hasOwnProperty(key))
 		{
-			for (var i in events[key]) 
+			for (var i in events[key])
 			{
-				if (events[key][i] === func) 
+				if (events[key][i] === func)
 				{
 					events[key].splice(i, 1);
 				}
@@ -249,18 +249,18 @@ var FloorAd = (function(){
 		if (validate(_op.url)) closeButton.url = _op.url; else {error('Close button must contain a valid URL');return;};
 		if (validateNum(_op.width  )) closeButton.width = _op.width; else{ error('Close Button must contain a valid width');return;};
 		if (validateNum(_op.height  )){
-			if (_op.height > FloorAd.collapsedHeight){
+			if (_op.height > catfish.collapsedHeight){
 				error('close button height must fit within collapsed dimensions.');
 				return;
 			}else{
 				closeButton.height = _op.height;
 			}
-		}else{ 
+		}else{
 			error('Close Button must contain a valid width');
 			return;
 		};
 		if (validateNum(_op.offsetY)){
-			if (_op.offsetY > FloorAd.collapsedHeight){
+			if (_op.offsetY > catfish.collapsedHeight){
 				error('close button top margin must fit within collapsed dimensions.');
 				return;
 			}else{
@@ -272,8 +272,8 @@ var FloorAd = (function(){
 		};
 		if (validateNum(_op.offsetX)) closeButton.offsetX = _op.offsetX; else {error('Close Button must contain a valid offsetX');return;};
 	}
-	
-	return { 
+
+	return {
 		/* Public interface - API */
 		initialize : function(_el,_c,_e,_ch,_eh,_fw,_op)/* initializing function */
 		{
@@ -287,12 +287,12 @@ var FloorAd = (function(){
 				if (validate(_eh)) this.expandedHeight = parseInt(_eh);
 				if (validate(_fw)) this.fixedWidth = parseInt(_fw);
 				this.heightOffset = this.expandedHeight - this.collapsedHeight;
-				
+
 				if (_op !== undefined) setCloseButtonOptions(_op);
-				
+
 				this.collapsed_close_btn = appendCloseButtonTo(this.collapsed);
 				this.expanded_close_btn = appendCloseButtonTo(this.expanded);
-				
+
 				/*Expanded Listeners */
 				Enabler.addEventListener(studio.events.StudioEvent.FULLSCREEN_EXPAND_START,function(e){
 					dispatch(_E_S);
@@ -306,7 +306,7 @@ var FloorAd = (function(){
 				Enabler.addEventListener(studio.events.StudioEvent.FULLSCREEN_COLLAPSE_START,function(e){
 					dispatch(_C_S);
 				},false);
-				
+
 				Enabler.addEventListener(studio.events.StudioEvent.FULLSCREEN_COLLAPSE_FINISH,function(e){
 					collapse();
 					dispatch(_C_F);
@@ -316,14 +316,14 @@ var FloorAd = (function(){
 					/*log('EXIT');*/
 					collapse();
 				},false);
-				
+
 				/* Setup Initial positions */
 				setFloorDivs();
 			}else{
 				error('Enabler missing. Make sure to include the Enabler in your HTML.');
 			}
 		},
-		
+
 		/* Events API */
 		addEventListener : _addEventListener,
 		removeEventListener : _removeEventListener,
@@ -333,27 +333,27 @@ var FloorAd = (function(){
 		COLLAPSE_START : _C_S,
 		COLLAPSE_FINISH : _C_F,
 		CLOSE : _C,
-		
+
 		/* Enabler wrapper */
 		requestExpand : function ()
 		{
 			Enabler.requestFullscreenExpand(5000,this.expandedHeight);
 		},
-		
+
 		finishExpand : function ()
 		{
 			Enabler.finishFullscreenExpand();
 		},
-		
+
 		requestCollapse : function ()
 		{
 			Enabler.requestFullscreenCollapse();
 		},
-		
+
 		finishCollapse : function ()
 		{
 			Enabler.finishFullscreenCollapse();
 		},
-		
+
 	};
 })();

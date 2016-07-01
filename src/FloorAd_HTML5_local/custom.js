@@ -17,7 +17,7 @@ init = function()
 	//Assign All the elements to the element on the page
 	content = document.getElementById('collapsed_content_dc');
 	expandConten = document.getElementById('expanded_content_dc');
-	bgExit = document.getElementById('background_exit_dc');	
+	bgExit = document.getElementById('background_exit_dc');
 	expandBtn = document.getElementById('expand_btn_dc');
 	collapseBtn = document.getElementById('collapse_btn_dc');
 	//Bring in listeners i.e. if a user clicks or rollsover
@@ -26,7 +26,7 @@ init = function()
 	content.style.display = "block";
 }
 
-enablerInitHandler = function () 
+enablerInitHandler = function ()
 {
 	// Start ad, initialize animation,
 	// load in your image assets, call Enabler methods,
@@ -35,7 +35,7 @@ enablerInitHandler = function ()
 	// Set the minimum floating dimension
 	Enabler.setFloatingPixelDimensions(970,300);
 	// Set Close Button shape
-	FloorAd.initialize("FloorAd","collapsed_content_dc","expanded_content_dc",90,300,970/*,{
+	catfish.initialize("catfish","collapsed_content_dc","expanded_content_dc",90,300,970/*,{
 		url : 'close_btn.png',
 		width : 51,
 		height : 16,
@@ -45,16 +45,16 @@ enablerInitHandler = function ()
 }
 
 // If true, start function. If false, listen for INIT.
-if (Enabler.isInitialized()) 
+if (Enabler.isInitialized())
 {
 	enablerInitHandler();
 } else {
 	Enabler.addEventListener(studio.events.StudioEvent.INIT, enablerInitHandler);
-	//FloorAd.addEventListener(FloorAd.INIT,function(e){alert('comence');})
+	//catfish.addEventListener(catfish.INIT,function(e){alert('comence');})
 }
 
 //Add Event Listeners
-addListeners = function() 
+addListeners = function()
 {
 	bgExit.addEventListener('click', bgExitHandler, false);
 	// Expand and Collapse button listeners
@@ -62,18 +62,18 @@ addListeners = function()
 	collapseBtn.addEventListener('click', collapseAdHandler, false);
 	// Listeners when the Creative is closed
 	//Enabler.addEventListener(studio.events.StudioEvent.EXIT,closeHandler,false);
-	
-	FloorAd.addEventListener(FloorAd.CLOSE,closeHandler,false);
-	
-	FloorAd.addEventListener(FloorAd.COLLAPSE_START, function() {
+
+	catfish.addEventListener(catfish.CLOSE,closeHandler,false);
+
+	catfish.addEventListener(catfish.COLLAPSE_START, function() {
 		// Add desired collapsing animation
-		FloorAd.finishCollapse();			
+		catfish.finishCollapse();
 		// custom actions
 		Enabler.stopTimer("Panel_1 Expansion");
 
 	});
-	
-	FloorAd.addEventListener(FloorAd.COLLAPSE_FINISH, function() {
+
+	catfish.addEventListener(catfish.COLLAPSE_FINISH, function() {
 		// Show collapsed panel
 		// Add any additional functionalities
 		// or animation on the collapsed panel
@@ -81,15 +81,15 @@ addListeners = function()
 		expandConten.style.display = "none";
 		content.style.display = "block";
 	});
-	
-	FloorAd.addEventListener(FloorAd.EXPAND_START,function(e){
+
+	catfish.addEventListener(catfish.EXPAND_START,function(e){
 		// Add desired expansion animation
-		FloorAd.finishExpand();
+		catfish.finishExpand();
 		// custom actions
 		Enabler.startTimer("Panel_1 Expansion");
 	});
-	
-	FloorAd.addEventListener(FloorAd.EXPAND_FINISH,function(e){
+
+	catfish.addEventListener(catfish.EXPAND_FINISH,function(e){
 		// Show expanded panel
 		// Add any additional functionalities
 		// or animation on the expanded panel
@@ -103,7 +103,7 @@ addListeners = function()
 closeHandler = function()
 {
 	// Ad desired actions when creative is closed
-	// note: Rest of close events will be performed by FloorAd
+	// note: Rest of close events will be performed by catfish
 	if (isExpanded)
 	{
 		Enabler.stopTimer("Panel_1 Expansion");
@@ -111,16 +111,16 @@ closeHandler = function()
 	}
 }
 
-bgExitHandler = function() 
-{	
+bgExitHandler = function()
+{
 	if (isExpanded)
 	{
 		//collapse the add	if Expanded
-		FloorAd.requestCollapse();
+		catfish.requestCollapse();
 		Enabler.stopTimer("Panel_1 Expansion");
 		// custom actions
 		isExpanded = false;
-		
+
 	}
 	//Call Exits
 	Enabler.exit('HTML5_Background_Clickthrough','https://www.google.com');
@@ -130,7 +130,7 @@ expandAdHandler = function(e)
 {
 	if (!isExpanded)
 	{
-		FloorAd.requestExpand();
+		catfish.requestExpand();
 		isExpanded= true;
 	}
 }
@@ -139,7 +139,7 @@ collapseAdHandler = function(e)
 {
 	if (isExpanded)
 	{
-		FloorAd.requestCollapse();
+		catfish.requestCollapse();
 		isExpanded = false;
 	}
 }
