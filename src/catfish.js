@@ -1,39 +1,43 @@
-/* Catfish format */ 
+/* Catfish format */
 var catfish = (function(){
-	/* private:*/
+	//  private
 	var version = 'v1';
 	var debug = true;
 	var hasCollapsed = false;
 	var hasExpanded = false;
-	/*required for initialize:*/
-	var element = null;/* catfish Div*/
-	var collapsed = null;/* collapsed Div*/
-	var expanded = null;/*expanded Div*/
-	var collapsedHeight = null;/* colapsed Div's height*/
-	var expandedHeight = null;/* expanded Div's height*/
+
+	// required for initialize:
+
+	var element = null;
+	var collapsed = null;
+	var expanded = null;
+	var collapsedHeight = null;
+	var expandedHeight = null;
 	var minimumWidth = null;
-	var fixedWidth = false;/* fixed Width property*/
-	var heightOffset = null;/* expanding offset (expanded Height - colapsed Height)*/
+	var fixedWidth = false;
+	var heightOffset = null;
 	var collapsed_close_btn = "";
 	var expanded_close_btn = "";
-	var closeButtonOffsetTop = 5;/* close button margin top*/
-	var closeButtonOffsetRight = 5;/* close button margin right*/
-	var isReady = false;/* catfish ready flag*/
-	var events = {};/* Empty event array*/
+	var closeButtonOffsetTop = 5;
+	var closeButtonOffsetRight = 5;
+	var isReady = false;
+	var events = {};
 	var fixedWidth = false;
 	var closeButtonStringLang = 'en';
 	var _roundCloseButton = false;
 	var btn_asset;
 
-	/* [Phase 2] */
-	var _I 	= 'catfish.INIT';
-	var _E_S = 'catfish.EXPAND_START';
-	var _E_F = 'catfish.EXPAND_FINISH';
-	var _C_S = 'catfish.COLLAPSE_START';
-	var _C_F = 'catfish.COLLAPSE_FINISH';
-	var _C = 'catfish.CLOSE';
+	// Events
+	var _I 	= 'CatFish.INIT';
+	var _E_S = 'CatFish.EXPAND_START';
+	var _E_F = 'CatFish.EXPAND_FINISH';
+	var _C_S = 'CatFish.COLLAPSE_START';
+	var _C_F = 'CatFish.COLLAPSE_FINISH';
+	var _C = 'CatFish.CLOSE';
 
-	var closeButton ={
+
+	var closeButton =
+	{
 		url:'https://goo.gl/Ybf1rm',
 		width : 32,
 		height : 32,
@@ -260,12 +264,14 @@ var catfish = (function(){
 	}
 
 	return {
-		/* Public interface - API */
-		initialize : function(_el,_c,_e,_ch,_eh,_fw,_op)/* initializing function */
+		// Public interface - API
+
+		// initializing function
+		initialize : function(_el,_c,_e,_ch,_eh,_fw,_op)
 		{
 			if (typeof Enabler !== undefined)
 			{
-				/*validate if element, collapsed and expanded containers exists */
+				// validate if element, collapsed and expanded containers exists
 				if (validate(document.getElementById(_el))) this.element = document.getElementById(_el);
 				if (validate(document.getElementById(_c))) this.collapsed = document.getElementById(_c);
 				if (validate(document.getElementById(_e))) this.expanded = document.getElementById(_e);
@@ -279,7 +285,7 @@ var catfish = (function(){
 				this.collapsed_close_btn = appendCloseButtonTo(this.collapsed);
 				this.expanded_close_btn = appendCloseButtonTo(this.expanded);
 
-				/*Expanded Listeners */
+				// Expanded Listeners
 				Enabler.addEventListener(studio.events.StudioEvent.FULLSCREEN_EXPAND_START,function(e){
 					dispatch(_E_S);
 					expand();
@@ -310,7 +316,7 @@ var catfish = (function(){
 			}
 		},
 
-		/* Events API */
+		// Events API
 		addEventListener : _addEventListener,
 		removeEventListener : _removeEventListener,
 		INIT : _I,
@@ -320,7 +326,7 @@ var catfish = (function(){
 		COLLAPSE_FINISH : _C_F,
 		CLOSE : _C,
 
-		/* Enabler wrapper */
+		// Enabler wrapper
 		requestExpand : function ()
 		{
 			Enabler.requestFullscreenExpand(5000,this.expandedHeight);

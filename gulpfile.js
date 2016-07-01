@@ -1,15 +1,30 @@
 // Declaring Gulp
-var gulp = require('gulp');
-var pump = require('pump');
-var uglify = require('gulp-uglify');
+'use strict';
+var gulp = require('gulp'),
+pump = require('pump'),
+uglify = require('gulp-uglify'),
+watch = require('gulp-watch');
+
+var path = {
+    script:
+    {
+      src:'src',
+      dest:'build'
+    }
+  };
 
 // Tasks
 gulp.task('uglify',function(cb){
   pump([
-        gulp.src('src/*.js'),
+        gulp.src(path.script.src+"/*.js"),
         uglify(),
-        gulp.dest('build/')
+        gulp.dest(path.script.des+"build/")
     ],
     cb
   );
 });
+gulp.task('watch',function(){
+
+});
+
+gulp.task('default',['uglify']);
