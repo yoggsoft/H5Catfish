@@ -14,25 +14,29 @@ On user interaction, the HTML5 Catfish can expand from a slim footer to a large 
     ...
     <!-- Include Catfish -->
     <script type="text/javascript" src="catfish.js"></script>
-    <script type="text/javascript">
-        catfish.initialize(
-            'CatFish',
-            'content_dc',
-            'expanded_content_dc',
-            '66', // collapsed height
-            '300', // expanded height
-            '970', // minimum height
-            {
-                url: ‘https://goo.gl/Ybf1rm’,
-                width : 32,
-                height : 32,
-                offsetX : 10,
-                offsetY : 5
-            }
-        );
-    </script>
 </head>
 ```
+- Declare the catfish instance
+```html
+<script type="text/javascript">
+    catfish.initialize(
+        'CatFish',
+        'content_dc',
+        'expanded_content_dc',
+        '66', // collapsed height
+        '300', // expanded height
+        '970', // minimum height
+        {
+            url: ‘https://goo.gl/Ybf1rm’,
+            width : 32,
+            height : 32,
+            offsetX : 10,
+            offsetY : 5
+        }
+    );
+</script>
+```
+
 - Setup the creative markup structure
 ```html
 <body>
